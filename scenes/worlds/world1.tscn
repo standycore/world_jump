@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bacp2urbmxd78"]
+
+[ext_resource type="PackedScene" uid="uid://bjro5c3dxjgcn" path="res://scenes/player/player.tscn" id="1_meu70"]
+[ext_resource type="Texture2D" uid="uid://dus0ngjtdxp6e" path="res://assets/sketches/pasted_image.png" id="1_ssurg"]
+[ext_resource type="Script" path="res://scenes/components/camera_follow/camera_follow.gd" id="3_08vvf"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_72e6e"]
+vertices = PackedVector2Array(-132, -61, -138, 88, -138, 87, 278, 445, 295, 484, -406, 486, 198, 404, 157, 372, 142, 323, -23, 289, 40, -21, 36, -63, 141, -63, 153, 42, -32, 28, -36, -22, 39, 32, 69, 113, 46, 94, 201, 124, 95, 165, 216, 215, 176, 287, 78, 202, 14, 251, -406, -61, -162, 258)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(7, 6, 5), PackedInt32Array(8, 7, 5, 9), PackedInt32Array(10, 11, 12, 13), PackedInt32Array(14, 15, 10, 16), PackedInt32Array(17, 18, 16, 10, 13, 19), PackedInt32Array(20, 17, 19, 21, 22), PackedInt32Array(23, 20, 22, 8), PackedInt32Array(24, 23, 8, 9), PackedInt32Array(5, 25, 0, 2, 26), PackedInt32Array(9, 5, 26)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-416, -71, 379, -76, 382, 494, -417, 497)])
+parsed_geometry_type = 1
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[node name="World1" type="Node2D"]
+
+[node name="PastedImage" type="Sprite2D" parent="."]
+position = Vector2(0, 210)
+texture = ExtResource("1_ssurg")
+
+[node name="Player" parent="." instance=ExtResource("1_meu70")]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+zoom = Vector2(3, 3)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+script = ExtResource("3_08vvf")
+target = NodePath("../Player")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_72e6e")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="NavigationRegion2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NavigationRegion2D/StaticBody2D"]
+polygon = PackedVector2Array(29, -31, 24, -91, -122, -92, -128, 88, -151, 250, -26, 278, 8, 243, 70, 196, 84, 165, 61, 119, 37, 100, 30, 42, -42, 38, -47, -33)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="NavigationRegion2D/StaticBody2D"]
+polygon = PackedVector2Array(149, -89, 163, 39, 211, 121, 227, 218, 186, 292, 153, 326, 166, 366, 203, 396, 286, 438, 319, 512, 404, 529, 398, -94)
