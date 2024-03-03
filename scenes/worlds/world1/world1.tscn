@@ -1,0 +1,114 @@
+[gd_scene load_steps=13 format=3 uid="uid://bacp2urbmxd78"]
+
+[ext_resource type="Texture2D" uid="uid://dus0ngjtdxp6e" path="res://assets/sketches/pasted_image.png" id="1_67cmh"]
+[ext_resource type="Script" path="res://scenes/worlds/world1/street_path.gd" id="2_7830o"]
+[ext_resource type="Script" path="res://scenes/components/camera_follow/camera_follow.gd" id="2_wisgx"]
+[ext_resource type="PackedScene" uid="uid://b63t2563g31cm" path="res://scenes/worlds/world1/traffic_light/traffic_light.tscn" id="3_q1ee7"]
+[ext_resource type="PackedScene" uid="uid://bjro5c3dxjgcn" path="res://scenes/player/player.tscn" id="4_ax41a"]
+[ext_resource type="PackedScene" uid="uid://xpof426h6k4d" path="res://scenes/worlds/world1/npc/npc.tscn" id="6_li5mp"]
+[ext_resource type="PackedScene" uid="uid://csb11meosaqd" path="res://scenes/worlds/world1/car/car.tscn" id="7_jdtcd"]
+[ext_resource type="Script" path="res://scenes/worlds/world1/car_destroyer.gd" id="8_ixv43"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_72e6e"]
+vertices = PackedVector2Array(-32, 281, 8, 243, 7, 244, -132, -61, -138, 88, -138, 87, 97, 428, 138, 462, 148, 484, -406, 486, 96, 428, 46, 384, -162, 258, 31, -23, 27, -63, 38, -63, 50, 69, -32, 28, -36, -23, 29, 30, 36, 96, 58, 118, 79, 101, 99, 154, 81, 164, 59, 204, 92, 203, 59, 224, 5, 273, -6, 328, -406, -61, 46, 383, 238, 394, 237, 393, 288, 438, 151, -9, 151, -8, 144, -64, 301, 484, 274, 484, 263, 452, 198, 363, 207, 411, 154, 369, 184, 315, 127, 326, 159, 297, 182, -64, 195, 37, 170, 73, 237, 118, 194, 121, 204, 210, 240, 222, 219, 274)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5), PackedInt32Array(6, 7, 8, 9, 10), PackedInt32Array(11, 10, 9, 12), PackedInt32Array(13, 14, 15, 16), PackedInt32Array(17, 18, 13, 19), PackedInt32Array(19, 13, 16, 20), PackedInt32Array(21, 20, 16, 22, 23), PackedInt32Array(24, 21, 23), PackedInt32Array(25, 24, 23, 26, 27), PackedInt32Array(2, 25, 27, 28, 0), PackedInt32Array(0, 28, 29), PackedInt32Array(9, 30, 3, 5, 12), PackedInt32Array(31, 11, 12, 29), PackedInt32Array(0, 29, 12), PackedInt32Array(32, 33, 34), PackedInt32Array(35, 36, 37), PackedInt32Array(34, 38, 39, 40), PackedInt32Array(41, 32, 34, 40, 42, 43), PackedInt32Array(44, 41, 43, 45, 46), PackedInt32Array(35, 37, 47, 48, 49), PackedInt32Array(49, 48, 50, 51), PackedInt32Array(52, 51, 50, 53, 54), PackedInt32Array(46, 52, 54, 44)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-416, -71, 379, -76, 382, 494, -417, 497)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_h5fo3"]
+vertices = PackedVector2Array(169, 71, 50, 69, 48, 41, 161, 35)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(48, 41, 161, 35, 169, 71, 50, 69)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+agent_radius = 0.0
+
+[sub_resource type="Curve2D" id="Curve2D_hk0g7"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 92, -121, 0, 0, 0, 0, 89, -36, 0, 0, 0, 0, 100, 47, 0, 0, 0, 0, 147, 135, 0, 0, 0, 0, 152, 201, 0, 0, 0, 0, 118, 268, 0, 0, 0, 0, 72, 299, 0, 0, 0, 0, 56, 337, 0, 0, 0, 0, 121, 410, 0, 0, 0, 0, 192, 468, 0, 0, 0, 0, 217, 542)
+}
+point_count = 11
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q3v6f"]
+size = Vector2(166, 81)
+
+[node name="World1" type="Node2D"]
+
+[node name="PastedImage" type="Sprite2D" parent="."]
+position = Vector2(0, 210)
+texture = ExtResource("1_67cmh")
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_72e6e")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="NavigationRegion2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NavigationRegion2D/StaticBody2D"]
+polygon = PackedVector2Array(20, -33, 15, -91, -122, -92, -128, 88, -151, 250, -35, 270, 1, 236, 51, 197, 70, 164, 50, 124, 27, 101, 20, 40, -42, 38, -47, -33)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="NavigationRegion2D/StaticBody2D"]
+polygon = PackedVector2Array(189, -91, 205, 34, 247, 115, 251, 224, 228, 280, 195, 317, 207, 357, 244, 386, 298, 434, 319, 512, 404, 529, 398, -94)
+
+[node name="Polygon2D" type="Polygon2D" parent="NavigationRegion2D"]
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(47, -81, 132, -85, 141, -7, 160, 75, 184, 124, 194, 208, 151, 291, 115, 324, 148, 377, 201, 419, 255, 458, 267, 494, 164, 495, 147, 456, 103, 420, 53, 376, 5, 325, 14, 278, 65, 232, 102, 209, 110, 154, 88, 96, 60, 65)
+
+[node name="Crosswalk1" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_h5fo3")
+enabled = false
+navigation_layers = 2
+
+[node name="Path2D" type="Path2D" parent="." node_paths=PackedStringArray("traffic_lights")]
+curve = SubResource("Curve2D_hk0g7")
+script = ExtResource("2_7830o")
+traffic_lights = [NodePath("../YSort/TrafficLight"), NodePath("../YSort/TrafficLight2")]
+traffic_stop_offsets = Array[float]([148.055, 335.295])
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+script = ExtResource("2_wisgx")
+target = NodePath("../YSort/Player")
+
+[node name="YSort" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="TrafficLight" parent="YSort" node_paths=PackedStringArray("cross_nav_region") instance=ExtResource("3_q1ee7")]
+position = Vector2(159, 33)
+cross_nav_region = NodePath("../../Crosswalk1")
+
+[node name="TrafficLight2" parent="YSort" instance=ExtResource("3_q1ee7")]
+position = Vector2(83, 209)
+
+[node name="Player" parent="YSort" instance=ExtResource("4_ax41a")]
+position = Vector2(1, 11)
+motion_mode = 1
+
+[node name="NPC" parent="YSort" instance=ExtResource("6_li5mp")]
+position = Vector2(213, 155)
+
+[node name="NPC2" parent="YSort" instance=ExtResource("6_li5mp")]
+position = Vector2(203, 272)
+
+[node name="NPC3" parent="YSort" instance=ExtResource("6_li5mp")]
+position = Vector2(-59, 311)
+
+[node name="NPC4" parent="YSort" instance=ExtResource("6_li5mp")]
+position = Vector2(-4, 270)
+
+[node name="Car" parent="YSort" node_paths=PackedStringArray("street_path") instance=ExtResource("7_jdtcd")]
+position = Vector2(88, -106)
+velocity = Vector2(-37.1122, 73.1322)
+street_path = NodePath("../../Path2D")
+progress_offset = 64.9
+speed = 82.01
+state = 1
+
+[node name="CarDestroyer" type="Area2D" parent="."]
+position = Vector2(219, 562)
+script = ExtResource("8_ixv43")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CarDestroyer"]
+position = Vector2(-1, -4.5)
+shape = SubResource("RectangleShape2D_q3v6f")

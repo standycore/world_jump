@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://csb11meosaqd"]
+
+[ext_resource type="Script" path="res://scenes/worlds/world1/car/car.gd" id="1_fn1cv"]
+[ext_resource type="Texture2D" uid="uid://bw4njx45jpha3" path="res://assets/world1/world1_sheet.png" id="1_odp5w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0x0o"]
+size = Vector2(73, 74)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rpm3r"]
+size = Vector2(94, 26)
+
+[node name="Car" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_fn1cv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -37)
+shape = SubResource("RectangleShape2D_v0x0o")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -43.06)
+texture = ExtResource("1_odp5w")
+region_enabled = true
+region_rect = Rect2(0, 0, 108, 100)
+
+[node name="FrontArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FrontArea"]
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_rpm3r")
