@@ -3,9 +3,7 @@ extends CharacterBody2D
 
 @export var street_path: StreetPath
 
-@export var progress_offset: float = 0
-
-@export var speed: float = 20
+@export var speed: float = 40
 @export var enabled: bool = false
 
 @onready var front_area: Area2D = $FrontArea
@@ -39,6 +37,13 @@ func _physics_process(delta):
 				if body != self:
 					return
 		
+		var overlapping_areas := front_area.get_overlapping_areas()
+		if len(overlapping_areas) > 0:
+			for area in overlapping_areas:
+				if area is TrafficLight:
+					if area.state == TrafficLight.State.GO:
+						return
+		
 		var closest_offset = street_path.curve.get_closest_offset(street_path.to_local(global_position))
 		var closest_pos = street_path.curve.sample_baked(closest_offset)
 		var next_pos
@@ -53,4 +58,6 @@ func _physics_process(delta):
 		velocity = (next_pos - position).normalized() * speed
 		
 		move_and_slide()
+		
+		front_area.rotation = velocity.angle() - PI * .5
 

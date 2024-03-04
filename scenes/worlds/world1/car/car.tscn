@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bw4njx45jpha3" path="res://assets/world1/world1_sheet.png" id="1_odp5w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v0x0o"]
-size = Vector2(73, 74)
+size = Vector2(73, 52)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rpm3r"]
 size = Vector2(94, 26)
@@ -14,7 +14,7 @@ motion_mode = 1
 script = ExtResource("1_fn1cv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -37)
+position = Vector2(-0.5, -26)
 shape = SubResource("RectangleShape2D_v0x0o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

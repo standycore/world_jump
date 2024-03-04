@@ -1,11 +1,11 @@
 @tool
-extends Node2D
+extends Area2D
 
 class_name TrafficLight
 
-@onready var light1: Node2D = $Light1
-@onready var light2: Node2D = $Light2
-@onready var timer: Timer = $Timer
+@onready var light1: Node2D = %Light1
+@onready var light2: Node2D = %Light2
+@onready var timer: Timer = %Timer
 
 @export var first_delay_time: float = 0
 @export var stop_time: float = 5
@@ -16,6 +16,7 @@ class_name TrafficLight
 @export var go_color: Color = Color.GREEN
 
 @export var cross_nav_region: NavigationRegion2D
+@export var cross_area: Area2D
 
 enum State {
 	STOP,

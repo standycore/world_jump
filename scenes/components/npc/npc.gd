@@ -38,6 +38,8 @@ func _physics_process(_delta):
 		var dir := _next_pos - position
 		dir = dir.normalized()
 		
-		velocity = dir * SPEED
-		
-		move_and_slide()
+		nav_agent.set_velocity(dir * SPEED)
+
+func _on_navigation_agent_2d_velocity_computed(safe_velocity):
+	velocity = safe_velocity
+	move_and_slide()
