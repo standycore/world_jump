@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://bacp2urbmxd78"]
 
-[ext_resource type="Texture2D" uid="uid://dus0ngjtdxp6e" path="res://assets/sketches/pasted_image.png" id="1_67cmh"]
+[ext_resource type="Texture2D" uid="uid://dus0ngjtdxp6e" path="res://assets/sketches/world1.png" id="1_67cmh"]
 [ext_resource type="Script" path="res://scenes/worlds/world1/street_path.gd" id="2_7830o"]
 [ext_resource type="Script" path="res://scenes/components/camera_follow/camera_follow.gd" id="2_wisgx"]
 [ext_resource type="PackedScene" uid="uid://b63t2563g31cm" path="res://scenes/worlds/world1/traffic_light/traffic_light.tscn" id="3_q1ee7"]
