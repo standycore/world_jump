@@ -1,15 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://csb11meosaqd"]
+[gd_scene load_steps=8 format=3 uid="uid://csb11meosaqd"]
 
 [ext_resource type="Script" path="res://scenes/worlds/world1/car/car.gd" id="1_fn1cv"]
 [ext_resource type="Texture2D" uid="uid://bw4njx45jpha3" path="res://assets/world1/world1_sheet.png" id="1_odp5w"]
+[ext_resource type="AudioStream" uid="uid://b5xao8puqp4gd" path="res://assets/sfx/honk.wav" id="3_makh0"]
+[ext_resource type="BehaviorTree" uid="uid://d03ntm0bh3471" path="res://scenes/worlds/world1/car/car_bt.tres" id="4_0k8el"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v0x0o"]
 size = Vector2(73, 52)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rpm3r"]
-size = Vector2(94, 26)
+size = Vector2(54, 26)
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ndvhw"]
 
 [node name="Car" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_fn1cv")
 
@@ -24,7 +30,18 @@ region_enabled = true
 region_rect = Rect2(0, 0, 108, 100)
 
 [node name="FrontArea" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 14
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FrontArea"]
-position = Vector2(0, 15)
+position = Vector2(0, 13)
 shape = SubResource("RectangleShape2D_rpm3r")
+
+[node name="HonkSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_makh0")
+volume_db = -3.0
+max_distance = 500.0
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("4_0k8el")
+blackboard_plan = SubResource("BlackboardPlan_ndvhw")

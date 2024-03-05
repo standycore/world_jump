@@ -1,0 +1,94 @@
+[gd_resource type="BehaviorTree" load_steps=25 format=3 uid="uid://d03ntm0bh3471"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_heius"]
+
+[sub_resource type="BBVariant" id="BBVariant_j6ml4"]
+saved_value = null
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_5b58y"]
+property = &"street_path"
+value = SubResource("BBVariant_j6ml4")
+
+[sub_resource type="BBNode" id="BBNode_hdgfk"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_fywfk"]
+node = SubResource("BBNode_hdgfk")
+method = &"is_blocked"
+result_var = "blocked"
+
+[sub_resource type="BTAlwaysFail" id="BTAlwaysFail_gk7tc"]
+children = [SubResource("BTCallMethod_fywfk")]
+
+[sub_resource type="BBVariant" id="BBVariant_c583a"]
+type = 1
+saved_value = false
+resource_name = "false"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_oxooa"]
+variable = "blocked"
+value = SubResource("BBVariant_c583a")
+
+[sub_resource type="BBNode" id="BBNode_54cb5"]
+saved_value = NodePath(".")
+resource_name = "."
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_vyymd"]
+node = SubResource("BBNode_54cb5")
+method = &"move"
+args_include_delta = true
+
+[sub_resource type="BTSequence" id="BTSequence_qni8h"]
+children = [SubResource("BTCheckVar_oxooa"), SubResource("BTCallMethod_vyymd")]
+
+[sub_resource type="BBVariant" id="BBVariant_75q20"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BTCheckAgentProperty" id="BTCheckAgentProperty_gxq58"]
+property = &"_blocked_by_life"
+value = SubResource("BBVariant_75q20")
+
+[sub_resource type="BBNode" id="BBNode_neaqk"]
+saved_value = NodePath("HonkSound")
+resource_name = "HonkSound"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_ymwq3"]
+node = SubResource("BBNode_neaqk")
+method = &"play"
+
+[sub_resource type="BTWait" id="BTWait_0wwsl"]
+duration = 0.4
+
+[sub_resource type="BBNode" id="BBNode_oe31i"]
+saved_value = NodePath("HonkSound")
+resource_name = "HonkSound"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_p4g1e"]
+node = SubResource("BBNode_oe31i")
+method = &"play"
+
+[sub_resource type="BTSequence" id="BTSequence_d45q4"]
+children = [SubResource("BTWait_0wwsl"), SubResource("BTCallMethod_p4g1e")]
+
+[sub_resource type="BTProbability" id="BTProbability_cmeok"]
+children = [SubResource("BTSequence_d45q4")]
+
+[sub_resource type="BTSequence" id="BTSequence_cgdhk"]
+children = [SubResource("BTCallMethod_ymwq3"), SubResource("BTProbability_cmeok")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_r3u6e"]
+duration = 4.0
+children = [SubResource("BTSequence_cgdhk")]
+
+[sub_resource type="BTSequence" id="BTSequence_pq0ej"]
+children = [SubResource("BTCheckAgentProperty_gxq58"), SubResource("BTCooldown_r3u6e")]
+
+[sub_resource type="BTSelector" id="BTSelector_ld84r"]
+children = [SubResource("BTCheckAgentProperty_5b58y"), SubResource("BTAlwaysFail_gk7tc"), SubResource("BTSequence_qni8h"), SubResource("BTSequence_pq0ej")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_heius")
+root_task = SubResource("BTSelector_ld84r")

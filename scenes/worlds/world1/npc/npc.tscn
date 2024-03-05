@@ -1,16 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://xpof426h6k4d"]
+[gd_scene load_steps=6 format=3 uid="uid://xpof426h6k4d"]
 
 [ext_resource type="Script" path="res://scenes/components/npc/npc.gd" id="1_vk764"]
 [ext_resource type="Texture2D" uid="uid://buadhcjn8144d" path="res://misc/icon.svg" id="2_m03i1"]
+[ext_resource type="BehaviorTree" uid="uid://c6filfgisdwdg" path="res://scenes/worlds/world1/npc/npc_bt.tres" id="3_fyxpe"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_u4lvn"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r8at6"]
+radius = 5.0
+height = 20.0
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_s0b0m"]
 
 [node name="NPC" type="CharacterBody2D"]
+collision_layer = 2
 motion_mode = 1
 script = ExtResource("1_vk764")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_u4lvn")
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_r8at6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -12.305)
@@ -21,5 +28,10 @@ texture = ExtResource("2_m03i1")
 path_desired_distance = 5.0
 navigation_layers = 3
 avoidance_enabled = true
+radius = 8.0
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+behavior_tree = ExtResource("3_fyxpe")
+blackboard_plan = SubResource("BlackboardPlan_s0b0m")
 
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

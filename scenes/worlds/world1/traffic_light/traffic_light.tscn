@@ -4,6 +4,8 @@
 [ext_resource type="Script" path="res://scenes/worlds/world1/traffic_light/traffic_light.gd" id="2_3wbkm"]
 
 [node name="TrafficLight" type="Area2D"]
+collision_layer = 8
+collision_mask = 0
 script = ExtResource("2_3wbkm")
 off_color = Color(0.286275, 0.286275, 0.286275, 1)
 stop_color = Color(1, 1, 0, 1)

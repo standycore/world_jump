@@ -78,6 +78,8 @@ target = NodePath("../YSort/Player")
 
 [node name="CarDestroyer" type="Area2D" parent="."]
 position = Vector2(219, 562)
+collision_layer = 0
+collision_mask = 4
 script = ExtResource("8_ixv43")
 metadata/_edit_group_ = true
 
@@ -87,6 +89,8 @@ shape = SubResource("RectangleShape2D_q3v6f")
 
 [node name="CarSpawner" type="Area2D" parent="." node_paths=PackedStringArray("street_path", "spawn_container")]
 position = Vector2(81, -144)
+collision_layer = 0
+collision_mask = 7
 script = ExtResource("5_mvhhg")
 street_path = NodePath("../StreetPath")
 car_scene = ExtResource("7_jdtcd")
@@ -101,10 +105,9 @@ shape = SubResource("RectangleShape2D_i8lxy")
 [node name="YSort" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="TrafficLight" parent="YSort" node_paths=PackedStringArray("cross_nav_region", "cross_area") instance=ExtResource("3_q1ee7")]
+[node name="TrafficLight" parent="YSort" node_paths=PackedStringArray("cross_nav_region") instance=ExtResource("3_q1ee7")]
 position = Vector2(159, 33)
 cross_nav_region = NodePath("Crosswalk1")
-cross_area = NodePath("")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/TrafficLight"]
 polygon = PackedVector2Array(-111, 8, 2, 2, 10, 38, -110, 36)
@@ -130,7 +133,6 @@ navigation_polygon = SubResource("NavigationPolygon_lqtpx")
 
 [node name="Player" parent="YSort" instance=ExtResource("4_ax41a")]
 position = Vector2(-14, 12)
-motion_mode = 1
 
 [node name="NPC" parent="YSort" instance=ExtResource("6_li5mp")]
 position = Vector2(213, 155)

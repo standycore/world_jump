@@ -25,6 +25,11 @@ func _ready():
 		push_error("missing spawn container")
 		return
 	
+	body_exited.connect(func(_body):
+		if get_overlapping_bodies().size() == 0:
+			all_bodies_exited.emit()
+	)
+	
 	while true:
 		var wait_time = randf_range(min_time, max_time)
 		timer.start(wait_time)
@@ -36,4 +41,4 @@ func _ready():
 		var start_pos := street_path.curve.sample_baked(0)
 		car.position = start_pos
 		car.street_path = street_path
-		spawn_container.add_child(car)
+		spawn_container.add_child.call_deferred(car)

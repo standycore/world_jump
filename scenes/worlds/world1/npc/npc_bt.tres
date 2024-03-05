@@ -1,0 +1,20 @@
+[gd_resource type="BehaviorTree" load_steps=6 format=3 uid="uid://c6filfgisdwdg"]
+
+[ext_resource type="Script" path="res://ai/tasks/move_to_position.gd" id="1_pj5xy"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_4ame6"]
+
+[sub_resource type="BTAction" id="BTAction_6ms4c"]
+custom_name = "MoveToRandomPosition"
+script = ExtResource("1_pj5xy")
+
+[sub_resource type="BTRandomWait" id="BTRandomWait_71tpc"]
+min_duration = 2.0
+max_duration = 5.0
+
+[sub_resource type="BTSequence" id="BTSequence_x0e2m"]
+children = [SubResource("BTAction_6ms4c"), SubResource("BTRandomWait_71tpc")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_4ame6")
+root_task = SubResource("BTSequence_x0e2m")
