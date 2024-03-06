@@ -1,7 +1,6 @@
 @tool
 extends CharacterBody2D
 
-@onready var npc_class = preload("res://scenes/components/npc/npc.gd")
 @onready var player_class = preload("res://scenes/player/player.gd")
 
 @export var street_path: StreetPath
@@ -22,28 +21,37 @@ func _physics_process(delta):
 	if not enabled:
 		return
 
+func get_closest_path_offset() -> float:
+	return street_path.curve.get_closest_offset(street_path.to_local(global_position))
+
 func is_blocked() -> bool:
+	_blocked_by_life = false
 	var overlapping_bodies := front_area.get_overlapping_bodies()
 	if len(overlapping_bodies) > 0:
 		for body in overlapping_bodies:
 			if body != self:
-				if body.get_script() == player_class or body.get_script() == npc_class:
+				if body.get_script() == player_class:
 					_blocked_by_life = true
 				else:
-					_blocked_by_life = false
+					for child in body.get_children():
+						if child is NPCComponent:
+							_blocked_by_life = true
+							break
 				return true
 	
 	var overlapping_areas := front_area.get_overlapping_areas()
+	var closest_offset := get_closest_path_offset()
 	if len(overlapping_areas) > 0:
 		for area in overlapping_areas:
 			if area is TrafficLight:
 				if area.state == TrafficLight.State.GO:
-					return true
+					if closest_offset < area.path_offset:
+						return true
 	
 	return false
 
 func move(delta) -> void:
-	var closest_offset = street_path.curve.get_closest_offset(street_path.to_local(global_position))
+	var closest_offset = get_closest_path_offset()
 	var closest_pos = street_path.curve.sample_baked(closest_offset)
 	var next_pos
 	

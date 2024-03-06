@@ -4,6 +4,9 @@ extends BTAction
 # Task parameters.
 #@export var parameter1: float
 #@export var parameter2: Vector2
+@export var npc: BBNode
+
+var _npc: NPCComponent
 
 ## Note: Each method declaration is optional.
 ## At minimum, you only need to define the "_tick" method.
@@ -16,12 +19,12 @@ func _generate_name() -> String:
 
 # Called to initialize the task.
 func _setup() -> void:
-	pass
+	_npc = agent.get_node(npc.saved_value)
 
 
 # Called when the task is entered.
 func _enter() -> void:
-	agent.move_to_position(agent.global_position + Vector2(randf_range(-100, 100), randf_range(-100, 100)))
+	_npc.move_to_position(_npc.get_position() + Vector2(randf_range(-100, 100), randf_range(-100, 100)))
 
 
 # Called when the task is exited.
@@ -30,8 +33,10 @@ func _exit() -> void:
 
 
 # Called each time this task is ticked (aka executed).
-func _tick(delta: float) -> Status:
-	if not agent.is_move_finished():
+func _tick(_delta: float) -> Status:
+	if not _npc.is_moving_enabled():
+		return FAILURE
+	if not _npc.is_move_finished():
 		return RUNNING
 	else:
 		return SUCCESS

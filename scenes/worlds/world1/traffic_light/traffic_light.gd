@@ -17,6 +17,8 @@ class_name TrafficLight
 
 @export var cross_nav_region: NavigationRegion2D
 @export var cross_area: Area2D
+@export var street_path: Path2D
+@export var path_offset: float = 0
 
 enum State {
 	STOP,

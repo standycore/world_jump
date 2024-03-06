@@ -1,12 +1,17 @@
-[gd_resource type="BehaviorTree" load_steps=6 format=3 uid="uid://c6filfgisdwdg"]
+[gd_resource type="BehaviorTree" load_steps=7 format=3 uid="uid://c6filfgisdwdg"]
 
-[ext_resource type="Script" path="res://ai/tasks/move_to_position.gd" id="1_pj5xy"]
+[ext_resource type="Script" path="res://ai/tasks/npc/move_to_random_position.gd" id="1_yns7w"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_4ame6"]
 
+[sub_resource type="BBNode" id="BBNode_d33o1"]
+saved_value = NodePath("NPCComponent")
+resource_name = "NPCComponent"
+
 [sub_resource type="BTAction" id="BTAction_6ms4c"]
 custom_name = "MoveToRandomPosition"
-script = ExtResource("1_pj5xy")
+script = ExtResource("1_yns7w")
+npc = SubResource("BBNode_d33o1")
 
 [sub_resource type="BTRandomWait" id="BTRandomWait_71tpc"]
 min_duration = 2.0

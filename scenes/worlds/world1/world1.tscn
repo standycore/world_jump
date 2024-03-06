@@ -69,7 +69,13 @@ script = ExtResource("2_7830o")
 traffic_lights = [NodePath("../YSort/TrafficLight"), NodePath("../YSort/TrafficLight2")]
 traffic_stop_offsets = Array[float]([148.055, 335.295])
 
+[node name="PathFollow2D" type="PathFollow2D" parent="StreetPath"]
+position = Vector2(135.249, 234.01)
+rotation = 2.0404
+progress = 371.75
+
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+zoom = Vector2(3, 3)
 process_callback = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
@@ -105,9 +111,11 @@ shape = SubResource("RectangleShape2D_i8lxy")
 [node name="YSort" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="TrafficLight" parent="YSort" node_paths=PackedStringArray("cross_nav_region") instance=ExtResource("3_q1ee7")]
+[node name="TrafficLight" parent="YSort" node_paths=PackedStringArray("cross_nav_region", "street_path") instance=ExtResource("3_q1ee7")]
 position = Vector2(159, 33)
 cross_nav_region = NodePath("Crosswalk1")
+street_path = NodePath("../../StreetPath")
+path_offset = 170.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/TrafficLight"]
 polygon = PackedVector2Array(-111, 8, 2, 2, 10, 38, -110, 36)
@@ -118,10 +126,12 @@ navigation_polygon = SubResource("NavigationPolygon_h5fo3")
 enabled = false
 navigation_layers = 2
 
-[node name="TrafficLight2" parent="YSort" node_paths=PackedStringArray("cross_nav_region", "cross_area") instance=ExtResource("3_q1ee7")]
+[node name="TrafficLight2" parent="YSort" node_paths=PackedStringArray("cross_nav_region", "cross_area", "street_path") instance=ExtResource("3_q1ee7")]
 position = Vector2(83, 209)
 cross_nav_region = NodePath("NavigationRegion2D2")
 cross_area = NodePath(".")
+street_path = NodePath("../../StreetPath")
+path_offset = 370.0
 state = 1
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/TrafficLight2"]

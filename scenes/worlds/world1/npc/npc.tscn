@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://xpof426h6k4d"]
+[gd_scene load_steps=8 format=3 uid="uid://xpof426h6k4d"]
 
+[ext_resource type="Script" path="res://scenes/worlds/world1/npc/npc.gd" id="1_b4r55"]
 [ext_resource type="Script" path="res://scenes/components/npc/npc.gd" id="1_vk764"]
 [ext_resource type="Script" path="res://scenes/components/tackleable/tackleable.gd" id="2_eg2l2"]
 [ext_resource type="Texture2D" uid="uid://buadhcjn8144d" path="res://misc/icon.svg" id="2_m03i1"]
@@ -14,10 +15,24 @@ height = 20.0
 [node name="NPC" type="CharacterBody2D"]
 collision_layer = 2
 motion_mode = 1
-script = ExtResource("1_vk764")
+script = ExtResource("1_b4r55")
 
-[node name="Tackleable" type="Node" parent="."]
+[node name="NPCComponent" type="Node" parent="." node_paths=PackedStringArray("body", "nav_agent")]
+script = ExtResource("1_vk764")
+speed = 30.0
+body = NodePath("..")
+nav_agent = NodePath("../NavigationAgent2D")
+
+[node name="Tackleable" type="Area2D" parent="." node_paths=PackedStringArray("target")]
+collision_layer = 2
+collision_mask = 0
 script = ExtResource("2_eg2l2")
+target = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tackleable"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_r8at6")
+debug_color = Color(0.996078, 0, 0.168627, 0.419608)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
@@ -38,4 +53,6 @@ radius = 8.0
 behavior_tree = ExtResource("3_fyxpe")
 blackboard_plan = SubResource("BlackboardPlan_s0b0m")
 
+[connection signal="tackle_finished" from="Tackleable" to="." method="_on_tackleable_tackle_finished"]
+[connection signal="tackled" from="Tackleable" to="." method="_on_tackleable_tackled"]
 [connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

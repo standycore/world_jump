@@ -18,7 +18,7 @@ func _physics_process(_delta):
 	
 	if not _tackling:
 		move()
-		if Input.is_action_just_pressed("ui_accept"):
+		if Input.is_action_just_pressed("tackle"):
 			tackle()
 
 func move() -> void:
@@ -54,28 +54,53 @@ func tackle() -> void:
 	jump_sound.play()
 	await get_tree().create_timer(.1).timeout
 	
-	#var camera := get_viewport().get_camera_2d()
-	#camera.zoom
+	var camera := get_viewport().get_camera_2d()
+	var original_zoom := camera.zoom
 	
-	var tackle_target = get_tackle_target()
-	if tackle_target:
-		# check if target is the right target, else fail
-		# for now, auto fail
-		print("lose")
 	
-	else:
+	var tackle_missed := true
+	var tackled_correct_target := false
+	
+	var tackleable := get_tackleable()
+	if tackleable:
+		tackle_missed = false
+		tackleable.tackle(self)
+		var tackle_target := tackleable.target
+		if tackle_target:
+			for child in tackle_target.get_children():
+				if child is ThiefComponent:
+					tackled_correct_target = true
+	
+	if tackle_missed:
 		print("miss")
 		await get_tree().create_timer(1).timeout
 		_tackling = false
+		camera.zoom = original_zoom
+	else:
+		var zoom_tween := get_tree().create_tween()
+		zoom_tween.tween_property(camera, "zoom", Vector2(5, 5), .2)
+		if tackled_correct_target:
+			print("win")
+		else:
+			print("lose")
 
-func get_tackle_target():
-	var bodies := tackle_area.get_overlapping_bodies()
-	if bodies.is_empty():
-		return
-	for body in bodies:
-		for child in body.get_children():
-			if child is Tackleable:
-				return body
+func get_tackleable() -> Tackleable:
+	var areas = tackle_area.get_overlapping_areas()
+	if areas.is_empty():
+		return null
+	for area in areas:
+		if area is Tackleable:
+			return area
+	return null
+
+func get_tackle_target() -> Node2D:
+	var areas = tackle_area.get_overlapping_areas()
+	if areas.is_empty():
+		return null
+	for area in areas:
+		if area is Tackleable:
+			return area.target
+	return null
 
 func check_tackle_target() -> bool:
 	return false
