@@ -4,8 +4,9 @@ extends CharacterBody2D
 
 func _on_tackleable_tackled(tackler):
 	print(self, " oh gosh ive been tackled!")
-	npc_component.set_moving_enabled(false)
+	#npc_component.set_moving_enabled(false)
 
 
 func _on_tackleable_tackle_finished(tackler):
-	npc_component.set_moving_enabled(true)
+	pass
+	#npc_component.set_moving_enabled(true)

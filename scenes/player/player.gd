@@ -75,14 +75,17 @@ func tackle() -> void:
 		print("miss")
 		await get_tree().create_timer(1).timeout
 		_tackling = false
-		camera.zoom = original_zoom
 	else:
 		var zoom_tween := get_tree().create_tween()
 		zoom_tween.tween_property(camera, "zoom", Vector2(5, 5), .2)
 		if tackled_correct_target:
 			print("win")
 		else:
-			print("lose")
+			print("wrong target")
+			await get_tree().create_timer(1).timeout
+			_tackling = false
+			tackleable.stop_tackle()
+			camera.zoom = original_zoom
 
 func get_tackleable() -> Tackleable:
 	var areas = tackle_area.get_overlapping_areas()

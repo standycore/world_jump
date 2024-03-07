@@ -1,8 +1,40 @@
-[gd_resource type="BehaviorTree" load_steps=7 format=3 uid="uid://c6filfgisdwdg"]
+[gd_resource type="BehaviorTree" load_steps=20 format=3 uid="uid://c6filfgisdwdg"]
 
 [ext_resource type="Script" path="res://ai/tasks/npc/move_to_random_position.gd" id="1_yns7w"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_4ame6"]
+
+[sub_resource type="BBNode" id="BBNode_k6or5"]
+saved_value = NodePath("Tackleable")
+resource_name = "Tackleable"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_6oeop"]
+node = SubResource("BBNode_k6or5")
+method = &"is_being_tackled"
+result_var = "being_tackled"
+
+[sub_resource type="BBVariant" id="BBVariant_ae5cy"]
+type = 1
+saved_value = false
+resource_name = "false"
+
+[sub_resource type="BTCheckVar" id="BTCheckVar_2r4ra"]
+variable = "being_tackled"
+value = SubResource("BBVariant_ae5cy")
+
+[sub_resource type="BBVariant" id="BBVariant_gq2pm"]
+type = 1
+saved_value = true
+resource_name = "true"
+
+[sub_resource type="BBNode" id="BBNode_vupif"]
+saved_value = NodePath("NPCComponent")
+resource_name = "NPCComponent"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_rixbg"]
+node = SubResource("BBNode_vupif")
+method = &"set_moving_enabled"
+args = Array[BBVariant]([SubResource("BBVariant_gq2pm")])
 
 [sub_resource type="BBNode" id="BBNode_d33o1"]
 saved_value = NodePath("NPCComponent")
@@ -17,9 +49,32 @@ npc = SubResource("BBNode_d33o1")
 min_duration = 2.0
 max_duration = 5.0
 
-[sub_resource type="BTSequence" id="BTSequence_x0e2m"]
+[sub_resource type="BTSequence" id="BTSequence_dx4wj"]
 children = [SubResource("BTAction_6ms4c"), SubResource("BTRandomWait_71tpc")]
+
+[sub_resource type="BTDynamicSequence" id="BTDynamicSequence_0r12n"]
+children = [SubResource("BTCallMethod_6oeop"), SubResource("BTCheckVar_2r4ra"), SubResource("BTCallMethod_rixbg"), SubResource("BTSequence_dx4wj")]
+
+[sub_resource type="BBVariant" id="BBVariant_kyy7g"]
+type = 1
+saved_value = false
+resource_name = "false"
+
+[sub_resource type="BBNode" id="BBNode_c1n51"]
+saved_value = NodePath("NPCComponent")
+resource_name = "NPCComponent"
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_73jwi"]
+node = SubResource("BBNode_c1n51")
+method = &"set_moving_enabled"
+args = Array[BBVariant]([SubResource("BBVariant_kyy7g")])
+
+[sub_resource type="BTSequence" id="BTSequence_uqkxt"]
+children = [SubResource("BTCallMethod_73jwi")]
+
+[sub_resource type="BTSelector" id="BTSelector_saeal"]
+children = [SubResource("BTDynamicSequence_0r12n"), SubResource("BTSequence_uqkxt")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_4ame6")
-root_task = SubResource("BTSequence_x0e2m")
+root_task = SubResource("BTSelector_saeal")

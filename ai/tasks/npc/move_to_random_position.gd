@@ -7,6 +7,7 @@ extends BTAction
 @export var npc: BBNode
 
 var _npc: NPCComponent
+var _sync_delayed: bool = false
 
 ## Note: Each method declaration is optional.
 ## At minimum, you only need to define the "_tick" method.
@@ -26,7 +27,6 @@ func _setup() -> void:
 func _enter() -> void:
 	_npc.move_to_position(_npc.get_position() + Vector2(randf_range(-100, 100), randf_range(-100, 100)))
 
-
 # Called when the task is exited.
 func _exit() -> void:
 	pass
@@ -34,9 +34,11 @@ func _exit() -> void:
 
 # Called each time this task is ticked (aka executed).
 func _tick(_delta: float) -> Status:
-	if not _npc.is_moving_enabled():
-		return FAILURE
+	if not _sync_delayed:
+		_sync_delayed = true
+		return RUNNING
 	if not _npc.is_move_finished():
+		_npc.move_with_nav()
 		return RUNNING
 	else:
 		return SUCCESS

@@ -10,7 +10,6 @@ script = ExtResource("2_3wbkm")
 off_color = Color(0.286275, 0.286275, 0.286275, 1)
 stop_color = Color(1, 1, 0, 1)
 go_color = Color(0, 0, 1, 1)
-path_offset = null
 
 [node name="Base" type="Sprite2D" parent="."]
 position = Vector2(-2, -30)

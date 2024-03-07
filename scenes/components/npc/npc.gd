@@ -8,7 +8,7 @@ class_name NPCComponent
 @export var nav_agent: NavigationAgent2D
 @export var auto_movement: bool = true
 
-var _moving_finished := false
+var _moving_finished := true
 var _moving_enabled := true
 var _next_pos := Vector2(0, 0)
 
@@ -20,16 +20,17 @@ func _ready():
 		body.move_and_slide()
 	)
 
-func _physics_process(_delta):
-	if not auto_movement:
-		return
-	move_with_nav()
+#func _physics_process(_delta):
+	#if not auto_movement:
+		#return
+	#move_with_nav()
 
 func get_position() -> Vector2:
 	return body.global_position
 
 func move_to_position(pos: Vector2) -> void:
 	nav_agent.target_position = pos
+	_moving_finished = false
 
 func is_moving_enabled() -> bool:
 	return _moving_enabled
@@ -46,7 +47,6 @@ func move_with_nav() -> void:
 	if not _moving_enabled:
 		return
 	if not nav_agent.is_navigation_finished():
-		_moving_finished = false
 		_next_pos = nav_agent.get_next_path_position()
 		var dir := _next_pos - body.position
 		dir = dir.normalized()

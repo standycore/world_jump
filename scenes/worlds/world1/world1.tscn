@@ -144,7 +144,7 @@ navigation_polygon = SubResource("NavigationPolygon_lqtpx")
 [node name="Player" parent="YSort" instance=ExtResource("4_ax41a")]
 position = Vector2(-14, 12)
 
-[node name="NPC" parent="YSort" instance=ExtResource("6_li5mp")]
+[node name="tester" parent="YSort" instance=ExtResource("6_li5mp")]
 position = Vector2(213, 155)
 
 [node name="NPC2" parent="YSort" instance=ExtResource("6_li5mp")]

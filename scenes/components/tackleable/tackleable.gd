@@ -23,3 +23,11 @@ func tackle(tackler: Node2D) -> void:
 	_being_tackled = true
 	_current_tackler = tackler
 	tackled.emit(tackler)
+
+func stop_tackle() -> void:
+	if not _being_tackled:
+		return
+	_being_tackled = false
+	tackle_finished.emit(_current_tackler)
+	_last_tackler = _current_tackler
+	_current_tackler = null
