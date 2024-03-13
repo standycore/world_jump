@@ -1,11 +1,159 @@
-[gd_scene load_steps=10 format=3 uid="uid://rg26gxsu0kfx"]
+[gd_scene load_steps=13 format=3 uid="uid://rg26gxsu0kfx"]
 
 [ext_resource type="PackedScene" uid="uid://bgk4awg7erdwm" path="res://scenes/components/camera_follow/camera_follow.tscn" id="1_f147t"]
+[ext_resource type="Script" path="res://scenes/worlds/tutorial/tutorial.gd" id="1_mp6gx"]
 [ext_resource type="PackedScene" uid="uid://bjro5c3dxjgcn" path="res://scenes/player/player.tscn" id="2_e20ck"]
 [ext_resource type="Texture2D" uid="uid://igcfodd2foju" path="res://assets/tutorial/tutorial_sheet.png" id="3_ahho6"]
-[ext_resource type="Script" path="res://scenes/worlds/tutorial/animation_autoplay.gd" id="4_yqvsy"]
 [ext_resource type="PackedScene" uid="uid://cl2uo2x30vd5" path="res://scenes/worlds/tutorial/button/button.tscn" id="5_0oq0p"]
 [ext_resource type="Texture2D" uid="uid://5cidcxx1lkts" path="res://assets/remote.png" id="6_ei6yf"]
+
+[sub_resource type="Animation" id="Animation_y07pl"]
+resource_name = "construct_remote"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("YSort/Player:enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraFollow:position_smoothing_speed")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 5.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [20.0, 1.0, 20.0]
+}
+tracks/2/type = "animation"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("YSort/MainMachine/Sprite2D/AnimationPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": PackedStringArray("fan", "[stop]"),
+"times": PackedFloat32Array(1, 5)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("YSort/MainMachine/Sprite2D/AnimationPlayer:speed_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1, 3, 5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.0, 10.0, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("YSort/Remote:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("YSort/Remote:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(1, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("YSort/Remote:position")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 5.5, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(8, -163), Vector2(8, -163), Vector2(8, 30)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("CameraFollow:shake_amount")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [5.0, 0.0]
+}
+tracks/8/type = "method"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CameraFollow")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(1, 8.9),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [NodePath("../YSort/Remote")],
+"method": &"set_target"
+}, {
+"args": [NodePath("../YSort/Player")],
+"method": &"set_target"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_i4sbt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("YSort/Remote:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, -163)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraFollow:shake_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sevvd"]
+_data = {
+"RESET": SubResource("Animation_i4sbt"),
+"construct_remote": SubResource("Animation_y07pl")
+}
 
 [sub_resource type="Animation" id="Animation_mf1x7"]
 resource_name = "fan"
@@ -32,16 +180,26 @@ _data = {
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ckjc0"]
 height = 74.0
 
-[node name="Tutorial" type="Node2D"]
+[node name="Tutorial" type="Node2D" node_paths=PackedStringArray("buttons", "camera", "player")]
+script = ExtResource("1_mp6gx")
+buttons = [NodePath("YSort/Button1"), NodePath("YSort/Button2"), NodePath("YSort/Button3")]
+camera = NodePath("CameraFollow")
+player = NodePath("YSort/Player")
+
+[node name="TutorialAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sevvd")
+}
 
 [node name="CameraFollow" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_f147t")]
-target = NodePath("../YSort/Player")
+target = NodePath("../YSort/Remote")
 
 [node name="YSort" type="Node2D" parent="."]
 y_sort_enabled = true
 
 [node name="Player" parent="YSort" instance=ExtResource("2_e20ck")]
-position = Vector2(6, -21)
+position = Vector2(3, -11)
+enabled = false
 
 [node name="MainMachine" type="StaticBody2D" parent="YSort"]
 position = Vector2(-28, -195)
@@ -65,8 +223,6 @@ region_rect = Rect2(456, 8, 71, 73)
 libraries = {
 "": SubResource("AnimationLibrary_dteo7")
 }
-script = ExtResource("4_yqvsy")
-animation_name = &"fan"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/MainMachine"]
 polygon = PackedVector2Array(-116, 157, -64, 154, -62, 92, -75, 86, -59, 55, -36, 42, -21, 42, -19, 76, 16, 74, 16, 104, 57, 104, 59, 76, 99, 78, 112, 74, 114, 2, -22, 1, -69, 12, -98, 42, -111, 93, -121, 94)
@@ -112,7 +268,9 @@ position = Vector2(151, -18)
 _pressed = false
 
 [node name="Remote" type="Node2D" parent="YSort"]
+visible = false
 position = Vector2(8, -163)
+scale = Vector2(1e-05, 1e-05)
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="YSort/Remote"]

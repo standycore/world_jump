@@ -27,6 +27,9 @@ signal released
 func _ready():
 	viewport_container.material = viewport_container.material.duplicate()
 
+func is_pressed() -> bool:
+	return _pressed
+
 func _on_interactable_interacted(_interactor):
 	_pressed = true
 

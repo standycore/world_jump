@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Player
 
+@export var enabled := true
+
 @export var speed: float = 100.0
 
 @onready var tackle_area: Area2D = %TackleArea
@@ -18,6 +20,8 @@ func _ready():
 	Interactable.range_reference = self
 
 func _physics_process(_delta):
+	if not enabled:
+		return
 	
 	if not _tackling:
 		move()
