@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://rg26gxsu0kfx"]
+[gd_scene load_steps=14 format=3 uid="uid://rg26gxsu0kfx"]
 
 [ext_resource type="PackedScene" uid="uid://bgk4awg7erdwm" path="res://scenes/components/camera_follow/camera_follow.tscn" id="1_f147t"]
 [ext_resource type="Script" path="res://scenes/worlds/tutorial/tutorial.gd" id="1_mp6gx"]
@@ -158,8 +158,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Object(CharacterBody2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(3, -11),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"disable_mode":0,"collision_layer":2,"collision_mask":1,"collision_priority":1.0,"input_pickable":false,"motion_mode":1,"up_direction":Vector2(0, -1),"velocity":Vector2(0, 0),"slide_on_ceiling":true,"max_slides":4,"wall_min_slide_angle":0.261799,"floor_stop_on_slope":true,"floor_constant_speed":false,"floor_block_on_wall":true,"floor_max_angle":0.785398,"floor_snap_length":1.0,"platform_on_leave":0,"platform_floor_layers":4294967295,"platform_wall_layers":0,"safe_margin":0.08,"script":Resource("res://scenes/player/player.gd"),"enabled":true,"speed":100.0)
-]
+"values": [null]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -204,6 +203,12 @@ _data = {
 "construct_remote": SubResource("Animation_y07pl")
 }
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_vlo1h"]
+vertices = PackedVector2Array(107, -157, 111, -143, 105, -122, 94, -123, 94, -160, 253, -251, 242, 72, 201, -32, 168, 20, -253, 76, 104, -24, 144, -77, 130, -97, 146, -153, 72, -107, 91, -113, 91, -68, 38, -81, 138, -69, 134, -73, 137, -182, -160, -110, -156, -63, -213, -63, -253, -245, -56, -108, -22, -110, -22, -81, -82, -32, -80, -104, 109, -193, 96, -194, 97, -203, -87, -112, -89, -113, -79, -132, -80, -113, -79, -109, -80, -109, 40, -108, 102, -43, 112, -35, -61, -143, -58, -143, -135, -158, -147, -111, -51, -204, -102, -192, -221, -60, -229, -54, -231, -43, -229, -33, -221, -25, -212, -23, -156, -23, -147, -25, -144, -27)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7), PackedInt32Array(8, 7, 6), PackedInt32Array(8, 6, 9, 10), PackedInt32Array(5, 7, 11, 12, 13), PackedInt32Array(14, 15, 16, 17), PackedInt32Array(11, 18, 19, 12), PackedInt32Array(5, 13, 20), PackedInt32Array(21, 22, 23, 24), PackedInt32Array(25, 26, 27, 28, 29), PackedInt32Array(30, 31, 32, 5), PackedInt32Array(33, 34, 35, 36), PackedInt32Array(37, 38, 36), PackedInt32Array(17, 39, 14), PackedInt32Array(40, 41, 10, 9), PackedInt32Array(36, 35, 42, 43, 25, 37), PackedInt32Array(29, 37, 25), PackedInt32Array(17, 16, 40, 9, 28), PackedInt32Array(44, 45, 21, 24), PackedInt32Array(5, 20, 30), PackedInt32Array(24, 5, 32, 46), PackedInt32Array(24, 46, 47), PackedInt32Array(24, 47, 44), PackedInt32Array(24, 23, 48), PackedInt32Array(24, 48, 49), PackedInt32Array(9, 24, 49, 50), PackedInt32Array(9, 50, 51), PackedInt32Array(9, 51, 52), PackedInt32Array(9, 52, 53), PackedInt32Array(9, 53, 54), PackedInt32Array(28, 27, 17), PackedInt32Array(28, 9, 54, 55), PackedInt32Array(28, 55, 56)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-263, -255, 264, -262, 252, 82, -264, 87)])
+source_geometry_mode = 1
+
 [sub_resource type="Animation" id="Animation_mf1x7"]
 resource_name = "fan"
 length = 0.5
@@ -240,10 +245,12 @@ libraries = {
 "": SubResource("AnimationLibrary_sevvd")
 }
 
-[node name="CameraFollow" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_f147t")]
-target = NodePath("../YSort/Player")
+[node name="CameraFollow" parent="." instance=ExtResource("1_f147t")]
 
-[node name="YSort" type="Node2D" parent="."]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_vlo1h")
+
+[node name="YSort" type="Node2D" parent="." groups=["navigation_polygon_source_geometry_group"]]
 y_sort_enabled = true
 
 [node name="Player" parent="YSort" instance=ExtResource("2_e20ck")]
