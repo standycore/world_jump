@@ -1,0 +1,119 @@
+[gd_scene load_steps=10 format=3 uid="uid://rg26gxsu0kfx"]
+
+[ext_resource type="PackedScene" uid="uid://bgk4awg7erdwm" path="res://scenes/components/camera_follow/camera_follow.tscn" id="1_f147t"]
+[ext_resource type="PackedScene" uid="uid://bjro5c3dxjgcn" path="res://scenes/player/player.tscn" id="2_e20ck"]
+[ext_resource type="Texture2D" uid="uid://igcfodd2foju" path="res://assets/tutorial/tutorial_sheet.png" id="3_ahho6"]
+[ext_resource type="Script" path="res://scenes/worlds/tutorial/animation_autoplay.gd" id="4_yqvsy"]
+[ext_resource type="PackedScene" uid="uid://cl2uo2x30vd5" path="res://scenes/worlds/tutorial/button/button.tscn" id="5_0oq0p"]
+[ext_resource type="Texture2D" uid="uid://5cidcxx1lkts" path="res://assets/remote.png" id="6_ei6yf"]
+
+[sub_resource type="Animation" id="Animation_mf1x7"]
+resource_name = "fan"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Fan:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dteo7"]
+_data = {
+"fan": SubResource("Animation_mf1x7")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ckjc0"]
+height = 74.0
+
+[node name="Tutorial" type="Node2D"]
+
+[node name="CameraFollow" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_f147t")]
+target = NodePath("../YSort/Player")
+
+[node name="YSort" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Player" parent="YSort" instance=ExtResource("2_e20ck")]
+position = Vector2(6, -21)
+
+[node name="MainMachine" type="StaticBody2D" parent="YSort"]
+position = Vector2(-28, -195)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="YSort/MainMachine"]
+position = Vector2(0, -1)
+texture = ExtResource("3_ahho6")
+offset = Vector2(0, 58.68)
+region_enabled = true
+region_rect = Rect2(86, 0, 242, 206)
+
+[node name="Fan" type="Sprite2D" parent="YSort/MainMachine/Sprite2D"]
+position = Vector2(34, 34)
+texture = ExtResource("3_ahho6")
+offset = Vector2(-0.69, -1.125)
+region_enabled = true
+region_rect = Rect2(456, 8, 71, 73)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="YSort/MainMachine/Sprite2D"]
+libraries = {
+"": SubResource("AnimationLibrary_dteo7")
+}
+script = ExtResource("4_yqvsy")
+animation_name = &"fan"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/MainMachine"]
+polygon = PackedVector2Array(-116, 157, -64, 154, -62, 92, -75, 86, -59, 55, -36, 42, -21, 42, -19, 76, 16, 74, 16, 104, 57, 104, 59, 76, 99, 78, 112, 74, 114, 2, -22, 1, -69, 12, -98, 42, -111, 93, -121, 94)
+
+[node name="Generator" type="StaticBody2D" parent="YSort"]
+position = Vector2(139, -190)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="YSort/Generator"]
+texture = ExtResource("3_ahho6")
+offset = Vector2(0, 98.83)
+region_enabled = true
+region_rect = Rect2(331, 0, 114, 212)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/Generator"]
+polygon = PackedVector2Array(-54, 4, -32, 7, -10, 16, -3, 37, -19, 91, -14, 120, -1, 137, 7, 127, 49, 160, 26, 196, -21, 164, -13, 153, -29, 141, -38, 120, -37, 77, -26, 78, -17, 48, -23, 24, -54, 15)
+
+[node name="GasContainer" type="StaticBody2D" parent="YSort"]
+position = Vector2(-188, -37)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="YSort/GasContainer"]
+texture = ExtResource("3_ahho6")
+offset = Vector2(0, -96.085)
+region_enabled = true
+region_rect = Rect2(6, 6, 80, 201)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/GasContainer"]
+position = Vector2(3.905, -5.805)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ckjc0")
+
+[node name="Button1" parent="YSort" instance=ExtResource("5_0oq0p")]
+position = Vector2(-108, -56)
+_pressed = false
+
+[node name="Button2" parent="YSort" instance=ExtResource("5_0oq0p")]
+position = Vector2(10, -106)
+_pressed = false
+
+[node name="Button3" parent="YSort" instance=ExtResource("5_0oq0p")]
+position = Vector2(151, -18)
+_pressed = false
+
+[node name="Remote" type="Node2D" parent="YSort"]
+position = Vector2(8, -163)
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="YSort/Remote"]
+texture = ExtResource("6_ei6yf")

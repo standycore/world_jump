@@ -14,12 +14,17 @@ var _tackling: bool = false
 var _last_dir: Vector2 = Vector2(0, 0)
 var _last_visual_dir: Vector2 = Vector2(0, 0)
 
+func _ready():
+	Interactable.range_reference = self
+
 func _physics_process(_delta):
 	
 	if not _tackling:
 		move()
 		if Input.is_action_just_pressed("tackle"):
 			tackle()
+		elif Input.is_action_just_pressed("interact"):
+			interact()
 
 func move() -> void:
 	var dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -45,6 +50,21 @@ func move() -> void:
 		sprite.flip_h = false
 	else:
 		sprite.flip_h = true
+
+func interact() -> void:
+	#print("attempting to interact")
+	#print("interactables: ", Interactable.interactables)
+	print(Interactable.ready_interactables)
+	var closest: Interactable
+	var closest_dist: float = 0
+	for interactable in Interactable.ready_interactables:
+		var dist := interactable.node.global_position.distance_squared_to(global_position)
+		if not closest or dist < closest_dist:
+			closest = interactable
+			closest_dist = dist
+	print(closest)
+	if closest:
+		var result := closest.interact(self)
 
 func tackle() -> void:
 	if _tackling:
@@ -82,6 +102,7 @@ func tackle() -> void:
 			print("win")
 		else:
 			print("wrong target")
+			GameManager.world_state.bad_tackle_count += 1
 			await get_tree().create_timer(1).timeout
 			_tackling = false
 			tackleable.stop_tackle()
@@ -95,15 +116,3 @@ func get_tackleable() -> Tackleable:
 		if area is Tackleable:
 			return area
 	return null
-
-func get_tackle_target() -> Node2D:
-	var areas = tackle_area.get_overlapping_areas()
-	if areas.is_empty():
-		return null
-	for area in areas:
-		if area is Tackleable:
-			return area.target
-	return null
-
-func check_tackle_target() -> bool:
-	return false

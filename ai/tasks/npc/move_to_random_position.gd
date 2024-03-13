@@ -29,7 +29,9 @@ func _enter() -> void:
 
 # Called when the task is exited.
 func _exit() -> void:
-	pass
+	#if _npc.get_parent().name == "tester":
+		#print("exited")
+	_npc.stop_moving()
 
 
 # Called each time this task is ticked (aka executed).

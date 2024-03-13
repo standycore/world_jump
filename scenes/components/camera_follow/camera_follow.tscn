@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgk4awg7erdwm"]
+
+[ext_resource type="Script" path="res://scenes/components/camera_follow/camera_follow.gd" id="1_u51kg"]
+
+[node name="CameraFollow" type="Camera2D"]
+zoom = Vector2(3, 3)
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+script = ExtResource("1_u51kg")

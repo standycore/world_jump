@@ -6,7 +6,6 @@ class_name NPCComponent
 
 @export var body: CharacterBody2D
 @export var nav_agent: NavigationAgent2D
-@export var auto_movement: bool = true
 
 var _moving_finished := true
 var _moving_enabled := true
@@ -20,17 +19,15 @@ func _ready():
 		body.move_and_slide()
 	)
 
-#func _physics_process(_delta):
-	#if not auto_movement:
-		#return
-	#move_with_nav()
-
 func get_position() -> Vector2:
 	return body.global_position
 
 func move_to_position(pos: Vector2) -> void:
 	nav_agent.target_position = pos
 	_moving_finished = false
+
+func stop_moving() -> void:
+	nav_agent.target_position = body.global_position
 
 func is_moving_enabled() -> bool:
 	return _moving_enabled

@@ -1,0 +1,67 @@
+[gd_scene load_steps=6 format=3 uid="uid://cl2uo2x30vd5"]
+
+[ext_resource type="Script" path="res://scenes/worlds/tutorial/button/button.gd" id="1_dynsc"]
+[ext_resource type="Texture2D" uid="uid://igcfodd2foju" path="res://assets/tutorial/tutorial_sheet.png" id="2_3vwn7"]
+[ext_resource type="Shader" path="res://shaders/outline.gdshader" id="2_cid27"]
+[ext_resource type="Script" path="res://scenes/components/interactable/interactable.gd" id="3_12vsh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jvrsr"]
+shader = ExtResource("2_cid27")
+shader_parameter/visible = false
+shader_parameter/flashing = false
+shader_parameter/outline_width = 2.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/flash_speed = 10.0
+shader_parameter/flash_max_alpha = 0.2
+
+[node name="Button" type="Node2D"]
+script = ExtResource("1_dynsc")
+_pressed = null
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_jvrsr")
+offset_left = -21.0
+offset_top = -21.0
+offset_right = 19.0
+offset_bottom = 19.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(40, 40)
+render_target_update_mode = 4
+
+[node name="Node2D" type="Node2D" parent="SubViewportContainer/SubViewport"]
+position = Vector2(20, 20)
+
+[node name="Base" type="Sprite2D" parent="SubViewportContainer/SubViewport/Node2D"]
+texture = ExtResource("2_3vwn7")
+region_enabled = true
+region_rect = Rect2(472, 92, 37, 36)
+
+[node name="HandleReleased" type="Sprite2D" parent="SubViewportContainer/SubViewport/Node2D"]
+unique_name_in_owner = true
+texture = ExtResource("2_3vwn7")
+offset = Vector2(0, -1.095)
+region_enabled = true
+region_rect = Rect2(509, 90, 32, 32)
+
+[node name="HandlePressed" type="Sprite2D" parent="SubViewportContainer/SubViewport/Node2D"]
+unique_name_in_owner = true
+visible = false
+modulate = Color(0.988235, 0.988235, 0, 1)
+texture = ExtResource("2_3vwn7")
+offset = Vector2(0, -0.935)
+region_enabled = true
+region_rect = Rect2(543, 91, 32, 31)
+
+[node name="Interactable" type="Node" parent="." node_paths=PackedStringArray("node")]
+script = ExtResource("3_12vsh")
+node = NodePath("..")
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
+[connection signal="interaction_ready" from="Interactable" to="." method="_on_interactable_interaction_ready"]
+[connection signal="interaction_unready" from="Interactable" to="." method="_on_interactable_interaction_unready"]
+[connection signal="range_entered" from="Interactable" to="." method="_on_interactable_range_entered"]
+[connection signal="range_exited" from="Interactable" to="." method="_on_interactable_range_exited"]
