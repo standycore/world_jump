@@ -5,7 +5,7 @@
 [ext_resource type="Shader" path="res://shaders/outline.gdshader" id="2_cid27"]
 [ext_resource type="Script" path="res://scenes/components/interactable/interactable.gd" id="3_12vsh"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jvrsr"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ta6n"]
 shader = ExtResource("2_cid27")
 shader_parameter/visible = false
 shader_parameter/flashing = false
@@ -16,10 +16,9 @@ shader_parameter/flash_max_alpha = 0.2
 
 [node name="Button" type="Node2D"]
 script = ExtResource("1_dynsc")
-_pressed = null
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-material = SubResource("ShaderMaterial_jvrsr")
+material = SubResource("ShaderMaterial_5ta6n")
 offset_left = -21.0
 offset_top = -21.0
 offset_right = 19.0

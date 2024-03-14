@@ -30,8 +30,12 @@ func _enter_tree():
 
 func _exit_tree():
 	Interactable.interactables.remove_at(Interactable.interactables.find(self))
-	Interactable.in_range_interactables.remove_at(Interactable.in_range_interactables.find(self))
-	Interactable.ready_interactables.remove_at(Interactable.ready_interactables.find(self))
+	var in_range_index := Interactable.in_range_interactables.find(self)
+	if in_range_index >= 0:
+		Interactable.in_range_interactables.remove_at(in_range_index)
+	var ready_index := Interactable.ready_interactables.find(self)
+	if ready_index >= 0:
+		Interactable.ready_interactables.remove_at(ready_index)
 
 func _process(_delta):
 	var ref = Interactable.range_reference

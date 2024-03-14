@@ -3,13 +3,18 @@ extends Node
 class_name NPCComponent
 
 @export var speed := 100.0
-
+@export var auto_process_move := false
 @export var body: CharacterBody2D
 @export var nav_agent: NavigationAgent2D
+@export var bouncing_enabled := false
+@export var bounce_node: Node2D
 
 var _moving_finished := true
 var _moving_enabled := true
 var _next_pos := Vector2(0, 0)
+
+var _bounce_progress: float = 0
+@export var _bounce_curve: Curve
 
 func _ready():
 	nav_agent.velocity_computed.connect(func(safe_velocity: Vector2):
@@ -18,6 +23,16 @@ func _ready():
 		body.velocity = safe_velocity
 		body.move_and_slide()
 	)
+
+func _physics_process(delta):
+	if auto_process_move:
+		move_with_nav()
+	if bouncing_enabled and bounce_node:
+		if not is_move_finished() and _bounce_progress >= 1.0:
+			_bounce_progress = 0.0
+		bounce_node.position.y = _bounce_curve.sample_baked(_bounce_progress) * -10
+	if _bounce_progress < 1.0:
+		_bounce_progress += delta * 5
 
 func get_position() -> Vector2:
 	return body.global_position

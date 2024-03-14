@@ -8,6 +8,9 @@ signal max_bad_tackle_count_reached
 var max_bad_tackle_count: int = 3
 var _max_bad_tackle_count_reached_emitted := false
 
+var player: Player
+var thief: Node2D
+
 var bad_tackle_count: int = 0:
 	set(v):
 		if v == bad_tackle_count:

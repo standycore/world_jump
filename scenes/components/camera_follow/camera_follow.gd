@@ -16,10 +16,10 @@ func _process(_delta):
 	
 	
 	
-	#if Input.is_action_just_pressed("zoom_in"):
-		#zoom += Vector2(1,1) * .2
-	#elif Input.is_action_just_pressed("zoom_out"):
-		#zoom -= Vector2(1,1) * .2
+	if Input.is_action_just_pressed("zoom_in"):
+		zoom += Vector2(1,1) * .2
+	elif Input.is_action_just_pressed("zoom_out"):
+		zoom -= Vector2(1,1) * .2
 
 func set_target(node_path: NodePath) -> void:
 	var node = get_node(node_path)

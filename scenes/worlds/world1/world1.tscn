@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://xpof426h6k4d" path="res://scenes/worlds/world1/npc/npc.tscn" id="6_li5mp"]
 [ext_resource type="PackedScene" uid="uid://csb11meosaqd" path="res://scenes/worlds/world1/car/car.tscn" id="7_jdtcd"]
 [ext_resource type="Script" path="res://scenes/worlds/world1/car_destroyer.gd" id="8_ixv43"]
-[ext_resource type="Script" path="res://scenes/components/thief/thief.gd" id="10_t3cfr"]
+[ext_resource type="Script" path="res://scenes/components/thief/thief_component.gd" id="10_t3cfr"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_72e6e"]
 vertices = PackedVector2Array(-32, 281, 8, 243, 7, 244, -132, -61, -138, 88, -138, 87, 97, 428, 138, 462, 148, 484, -406, 486, 96, 428, 46, 384, -162, 258, 31, -23, 27, -63, 38, -63, 50, 69, -32, 28, -36, -23, 29, 30, 36, 96, 58, 118, 79, 101, 99, 154, 81, 164, 59, 204, 92, 203, 59, 224, 5, 273, -6, 328, -406, -61, 46, 383, 238, 394, 237, 393, 288, 438, 151, -9, 151, -8, 144, -64, 301, 484, 274, 484, 263, 452, 198, 363, 207, 411, 154, 369, 184, 315, 127, 326, 159, 297, 182, -64, 195, 37, 170, 73, 237, 118, 194, 121, 204, 210, 240, 222, 219, 274)

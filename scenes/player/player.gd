@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Player
 
+signal won
+
 @export var enabled := true
 
 @export var speed: float = 100.0
@@ -18,11 +20,13 @@ var _last_visual_dir: Vector2 = Vector2(0, 0)
 
 func _ready():
 	Interactable.range_reference = self
+	if not GameManager.is_world_ready():
+		GameManager.world_ready.connect(func():
+			GameManager.world_state.player = self
+			print("set world player")
+		)
 
 func _physics_process(_delta):
-	if not enabled:
-		return
-	
 	if not _tackling:
 		move()
 		if Input.is_action_just_pressed("tackle"):
@@ -33,17 +37,17 @@ func _physics_process(_delta):
 func move() -> void:
 	var dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	# dir is normalized
-	if dir.length_squared() > 0:
-		velocity = dir * speed
-		_last_dir = dir
-		if dir.x != 0:
-			_last_visual_dir.x = dir.x
+	if enabled and dir.length_squared() > 0:
+			velocity = dir * speed
+			_last_dir = dir
+			if dir.x != 0:
+				_last_visual_dir.x = dir.x
+			
+			tackle_area.rotation = _last_dir.angle()
 	else:
 		velocity = Vector2(0, 0)
 	
 	move_and_slide()
-	
-	tackle_area.rotation = _last_dir.angle()
 	
 	if get_real_velocity().length_squared() > 0:
 		animation_player.play("run")
@@ -56,6 +60,8 @@ func move() -> void:
 		sprite.flip_h = true
 
 func interact() -> void:
+	if not enabled:
+		return
 	#print("attempting to interact")
 	#print("interactables: ", Interactable.interactables)
 	print(Interactable.ready_interactables)
@@ -68,15 +74,17 @@ func interact() -> void:
 			closest_dist = dist
 	print(closest)
 	if closest:
-		var result := closest.interact(self)
+		var _result := closest.interact(self)
 
 func tackle() -> void:
+	if not enabled:
+		return
 	if _tackling:
 		return
 	_tackling = true
 	animation_player.play("tackle")
 	jump_sound.play()
-	await get_tree().create_timer(.1).timeout
+	await get_tree().create_timer(.4).timeout
 	
 	var camera := get_viewport().get_camera_2d()
 	var original_zoom := camera.zoom
@@ -104,6 +112,7 @@ func tackle() -> void:
 		zoom_tween.tween_property(camera, "zoom", Vector2(5, 5), .2)
 		if tackled_correct_target:
 			print("win")
+			won.emit()
 		else:
 			print("wrong target")
 			GameManager.world_state.bad_tackle_count += 1

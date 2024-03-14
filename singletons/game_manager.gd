@@ -7,6 +7,10 @@ var world_state: WorldState = null
 
 var _world_ready := false
 
+var old_world_texture: Texture2D
+var next_world_scene: PackedScene
+var tackle_thief_texture: Texture2D
+
 #@onready var overlay: Control = preload("res://scenes/overlay/overlay.tscn").instantiate()
 
 func _ready():

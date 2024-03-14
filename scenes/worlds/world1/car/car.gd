@@ -16,7 +16,7 @@ func _ready():
 	if not Engine.is_editor_hint():
 		enabled = true
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	if not enabled:
 		return

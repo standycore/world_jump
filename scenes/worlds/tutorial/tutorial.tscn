@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://rg26gxsu0kfx"]
+[gd_scene load_steps=22 format=3 uid="uid://rg26gxsu0kfx"]
 
 [ext_resource type="PackedScene" uid="uid://bgk4awg7erdwm" path="res://scenes/components/camera_follow/camera_follow.tscn" id="1_f147t"]
 [ext_resource type="Script" path="res://scenes/worlds/tutorial/tutorial.gd" id="1_mp6gx"]
@@ -6,6 +6,218 @@
 [ext_resource type="Texture2D" uid="uid://igcfodd2foju" path="res://assets/tutorial/tutorial_sheet.png" id="3_ahho6"]
 [ext_resource type="PackedScene" uid="uid://cl2uo2x30vd5" path="res://scenes/worlds/tutorial/button/button.tscn" id="5_0oq0p"]
 [ext_resource type="Texture2D" uid="uid://5cidcxx1lkts" path="res://assets/remote.png" id="6_ei6yf"]
+[ext_resource type="Script" path="res://scenes/worlds/tutorial/thief.gd" id="7_43bje"]
+[ext_resource type="Texture2D" uid="uid://buadhcjn8144d" path="res://misc/icon.svg" id="7_piwc7"]
+[ext_resource type="Script" path="res://scenes/components/npc/npc_movement.gd" id="7_q5cbv"]
+[ext_resource type="Script" path="res://scenes/components/thief/thief_component.gd" id="8_v2mle"]
+[ext_resource type="Script" path="res://scenes/components/tackleable/tackleable.gd" id="11_233gc"]
+
+[sub_resource type="Animation" id="Animation_i4sbt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("YSort/Remote:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(8, -163)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CameraFollow:shake_amount")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CameraFollow:target")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [null]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CameraFollow:position_smoothing_speed")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [20.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("YSort/Player:enabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("YSort/Remote:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:phase")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Background/VentBackground:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("TopDetail/VentForeground:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("TopDetail/VentForeground:position")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-72, 39)]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("TopDetail/VentForeground:rotation")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("TopDetail/VentForeground:modulate")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("YSort/Thief/CollisionShape2D:disabled")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("YSort/Thief:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("YSort/Thief/Design/Remote:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("YSort/Thief:state")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/16/type = "value"
+tracks/16/imported = false
+tracks/16/enabled = true
+tracks/16/path = NodePath("YSort/Thief/Tackleable/CollisionShape2D:disabled")
+tracks/16/interp = 1
+tracks/16/loop_wrap = true
+tracks/16/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_y07pl"]
 resource_name = "construct_remote"
@@ -121,93 +333,206 @@ tracks/8/keys = {
 "method": &"set_target"
 }]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath(".:phase")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 8.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
 
-[sub_resource type="Animation" id="Animation_i4sbt"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_4u8yn"]
+resource_name = "steal_remote"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("YSort/Remote:position")
+tracks/0/path = NodePath("YSort/Player:enabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(8, -163)]
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("CameraFollow:shake_amount")
+tracks/1/path = NodePath("Background/VentBackground:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
+"update": 1,
+"values": [false]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("CameraFollow:target")
+tracks/2/path = NodePath("TopDetail/VentForeground:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [null]
+"values": [true]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("CameraFollow:position_smoothing_speed")
+tracks/3/path = NodePath("TopDetail/VentForeground:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [20.0]
+"values": [0.0, 12.5664]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("YSort/Player:enabled")
+tracks/4/path = NodePath("TopDetail/VentForeground:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(0.329877, 3.73213, 1),
 "update": 0,
-"values": [true]
+"values": [Vector2(-72, 39), Vector2(-72, 20), Vector2(-72, 150)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("YSort/Remote:visible")
+tracks/5/path = NodePath("TopDetail/VentForeground:modulate")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("YSort/Thief/NPCMovement")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0.7),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [Vector2(0, 30)],
+"method": &"move_to_position"
+}]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("YSort/Thief/CollisionShape2D:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [false]
+"update": 1,
+"values": [true]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("YSort/Thief:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("YSort/Thief/Design/Remote:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("YSort/Remote:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 1.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("YSort/Thief:state")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"times": PackedFloat32Array(0, 1.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath(".:phase")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(1.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/13/type = "value"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("YSort/Thief/Tackleable/CollisionShape2D:disabled")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(0, 1.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sevvd"]
 _data = {
 "RESET": SubResource("Animation_i4sbt"),
-"construct_remote": SubResource("Animation_y07pl")
+"construct_remote": SubResource("Animation_y07pl"),
+"steal_remote": SubResource("Animation_4u8yn")
 }
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_vlo1h"]
-vertices = PackedVector2Array(107, -157, 111, -143, 105, -122, 94, -123, 94, -160, 253, -251, 242, 72, 201, -32, 168, 20, -253, 76, 104, -24, 144, -77, 130, -97, 146, -153, 72, -107, 91, -113, 91, -68, 38, -81, 138, -69, 134, -73, 137, -182, -160, -110, -156, -63, -213, -63, -253, -245, -56, -108, -22, -110, -22, -81, -82, -32, -80, -104, 109, -193, 96, -194, 97, -203, -87, -112, -89, -113, -79, -132, -80, -113, -79, -109, -80, -109, 40, -108, 102, -43, 112, -35, -61, -143, -58, -143, -135, -158, -147, -111, -51, -204, -102, -192, -221, -60, -229, -54, -231, -43, -229, -33, -221, -25, -212, -23, -156, -23, -147, -25, -144, -27)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7), PackedInt32Array(8, 7, 6), PackedInt32Array(8, 6, 9, 10), PackedInt32Array(5, 7, 11, 12, 13), PackedInt32Array(14, 15, 16, 17), PackedInt32Array(11, 18, 19, 12), PackedInt32Array(5, 13, 20), PackedInt32Array(21, 22, 23, 24), PackedInt32Array(25, 26, 27, 28, 29), PackedInt32Array(30, 31, 32, 5), PackedInt32Array(33, 34, 35, 36), PackedInt32Array(37, 38, 36), PackedInt32Array(17, 39, 14), PackedInt32Array(40, 41, 10, 9), PackedInt32Array(36, 35, 42, 43, 25, 37), PackedInt32Array(29, 37, 25), PackedInt32Array(17, 16, 40, 9, 28), PackedInt32Array(44, 45, 21, 24), PackedInt32Array(5, 20, 30), PackedInt32Array(24, 5, 32, 46), PackedInt32Array(24, 46, 47), PackedInt32Array(24, 47, 44), PackedInt32Array(24, 23, 48), PackedInt32Array(24, 48, 49), PackedInt32Array(9, 24, 49, 50), PackedInt32Array(9, 50, 51), PackedInt32Array(9, 51, 52), PackedInt32Array(9, 52, 53), PackedInt32Array(9, 53, 54), PackedInt32Array(28, 27, 17), PackedInt32Array(28, 9, 54, 55), PackedInt32Array(28, 55, 56)])
+vertices = PackedVector2Array(107, -157, 111, -143, 105, -122, 94, -123, 94, -160, 241, -240, 237, 64, 201, -32, 168, 20, -244, 65, 104, -24, 144, -77, 130, -97, 146, -153, 72, -107, 91, -113, 91, -68, 38, -81, 138, -69, 134, -73, 137, -182, -160, -110, -156, -63, -213, -63, -241, -235, -56, -108, -22, -110, -22, -81, -82, -32, -80, -104, 109, -193, 96, -194, 97, -203, -87, -112, -89, -113, -79, -132, -80, -113, -79, -109, -80, -109, 40, -108, 102, -43, 112, -35, -61, -143, -58, -143, -135, -158, -147, -111, -51, -204, -102, -192, -221, -60, -229, -54, -144, -27, -147, -25, -156, -23, -212, -23, -221, -25, -229, -33, -231, -43)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7), PackedInt32Array(8, 7, 6), PackedInt32Array(8, 6, 9), PackedInt32Array(10, 8, 9), PackedInt32Array(5, 7, 11, 12, 13), PackedInt32Array(14, 15, 16, 17), PackedInt32Array(11, 18, 19, 12), PackedInt32Array(5, 13, 20), PackedInt32Array(21, 22, 23, 24), PackedInt32Array(25, 26, 27, 28, 29), PackedInt32Array(30, 31, 32, 5), PackedInt32Array(33, 34, 35, 36), PackedInt32Array(37, 38, 36), PackedInt32Array(17, 39, 14), PackedInt32Array(40, 41, 10, 9), PackedInt32Array(36, 35, 42, 43, 25, 37), PackedInt32Array(17, 16, 40, 9, 28), PackedInt32Array(29, 37, 25), PackedInt32Array(44, 45, 21, 24), PackedInt32Array(5, 20, 30), PackedInt32Array(24, 5, 32, 46), PackedInt32Array(24, 46, 47), PackedInt32Array(24, 47, 44), PackedInt32Array(24, 23, 48), PackedInt32Array(24, 48, 49), PackedInt32Array(28, 27, 17), PackedInt32Array(50, 28, 9, 51), PackedInt32Array(52, 51, 9), PackedInt32Array(53, 52, 9), PackedInt32Array(54, 53, 9), PackedInt32Array(55, 54, 9), PackedInt32Array(56, 55, 9), PackedInt32Array(56, 9, 24), PackedInt32Array(24, 49, 56)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-263, -255, 264, -262, 252, 82, -264, 87)])
 source_geometry_mode = 1
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="Animation" id="Animation_mf1x7"]
 resource_name = "fan"
@@ -234,11 +559,23 @@ _data = {
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ckjc0"]
 height = 74.0
 
-[node name="Tutorial" type="Node2D" node_paths=PackedStringArray("buttons", "camera", "player")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nlfgb"]
+radius = 5.0
+height = 20.0
+
+[sub_resource type="Curve" id="Curve_5m77p"]
+bake_resolution = 10
+_data = [Vector2(0, 0), 0.0, 3.97562, 0, 0, Vector2(0.498169, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.9782, 0.0, 0, 0]
+point_count = 3
+
+[node name="Tutorial" type="Node2D" node_paths=PackedStringArray("buttons", "camera", "player", "thief", "remote")]
+process_mode = 1
 script = ExtResource("1_mp6gx")
 buttons = [NodePath("YSort/Button1"), NodePath("YSort/Button2"), NodePath("YSort/Button3")]
 camera = NodePath("CameraFollow")
 player = NodePath("YSort/Player")
+thief = NodePath("YSort/Thief")
+remote = NodePath("YSort/Remote")
 
 [node name="TutorialAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -247,11 +584,54 @@ libraries = {
 
 [node name="CameraFollow" parent="." instance=ExtResource("1_f147t")]
 
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Floor" type="Sprite2D" parent="Background"]
+position = Vector2(-141, -39)
+texture = ExtResource("3_ahho6")
+region_enabled = true
+region_rect = Rect2(13, 214, 301, 349)
+
+[node name="Floor2" type="Sprite2D" parent="Background"]
+position = Vector2(135, 9)
+rotation = 1.5708
+texture = ExtResource("3_ahho6")
+region_enabled = true
+region_rect = Rect2(13, 214, 301, 349)
+
+[node name="Floor3" type="Sprite2D" parent="Background"]
+position = Vector2(-133, -214)
+rotation = -1.5708
+texture = ExtResource("3_ahho6")
+region_enabled = true
+region_rect = Rect2(13, 214, 301, 349)
+
+[node name="Floor4" type="Sprite2D" parent="Background"]
+position = Vector2(166, -186)
+texture = ExtResource("3_ahho6")
+region_enabled = true
+region_rect = Rect2(13, 214, 301, 349)
+
+[node name="VentBackground" type="Sprite2D" parent="Background"]
+position = Vector2(-72, 39)
+texture = ExtResource("3_ahho6")
+region_enabled = true
+region_rect = Rect2(473, 149, 72, 62)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Background"]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-644, 368, -633, -553, 627, -567, 632, 391, -348, 372, -317, 78, 246, 73, 251, -251, -251, -245, -260, 381)
+
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_vlo1h")
 
-[node name="YSort" type="Node2D" parent="." groups=["navigation_polygon_source_geometry_group"]]
+[node name="YSort" type="Node2D" parent="." groups=["navigation_polygon_source_group"]]
 y_sort_enabled = true
+
+[node name="Walls" type="StaticBody2D" parent="YSort"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="YSort/Walls"]
+polygon = PackedVector2Array(-251, -245, 252, -251, 247, 74, -256, 77, -258, 152, 322, 152, 322, -319, -329, -314, -337, 149, -258, 153)
 
 [node name="Player" parent="YSort" instance=ExtResource("2_e20ck")]
 position = Vector2(3, -11)
@@ -312,15 +692,12 @@ shape = SubResource("CapsuleShape2D_ckjc0")
 
 [node name="Button1" parent="YSort" instance=ExtResource("5_0oq0p")]
 position = Vector2(-108, -56)
-_pressed = false
 
 [node name="Button2" parent="YSort" instance=ExtResource("5_0oq0p")]
 position = Vector2(10, -106)
-_pressed = false
 
 [node name="Button3" parent="YSort" instance=ExtResource("5_0oq0p")]
 position = Vector2(151, -18)
-_pressed = false
 
 [node name="Remote" type="Node2D" parent="YSort"]
 visible = false
@@ -330,3 +707,109 @@ metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="YSort/Remote"]
 texture = ExtResource("6_ei6yf")
+
+[node name="Thief" type="CharacterBody2D" parent="YSort" node_paths=PackedStringArray("npc_movement", "player")]
+visible = false
+position = Vector2(-72, 52)
+motion_mode = 1
+script = ExtResource("7_43bje")
+npc_movement = NodePath("NPCMovement")
+player = NodePath("../Player")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Thief"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_nlfgb")
+disabled = true
+
+[node name="Design" type="Node2D" parent="YSort/Thief"]
+
+[node name="Sprite2D" type="Sprite2D" parent="YSort/Thief/Design"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_piwc7")
+offset = Vector2(0, -64.4)
+
+[node name="Remote" type="Sprite2D" parent="YSort/Thief/Design"]
+visible = false
+position = Vector2(12, -6)
+texture = ExtResource("6_ei6yf")
+
+[node name="NPCMovement" type="Node" parent="YSort/Thief" node_paths=PackedStringArray("body", "nav_agent", "bounce_node")]
+script = ExtResource("7_q5cbv")
+speed = 90.0
+auto_process_move = true
+body = NodePath("..")
+nav_agent = NodePath("../NavigationAgent2D")
+bouncing_enabled = true
+bounce_node = NodePath("../Design")
+_bounce_curve = SubResource("Curve_5m77p")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="YSort/Thief"]
+avoidance_enabled = true
+
+[node name="ThiefComponent" type="Node" parent="YSort/Thief" node_paths=PackedStringArray("target")]
+script = ExtResource("8_v2mle")
+target = NodePath("..")
+
+[node name="Tackleable" type="Area2D" parent="YSort/Thief" node_paths=PackedStringArray("target")]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("11_233gc")
+target = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Thief/Tackleable"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_nlfgb")
+disabled = true
+
+[node name="TopDetail" type="Node2D" parent="."]
+
+[node name="Truss" type="Node2D" parent="TopDetail"]
+position = Vector2(261, -173)
+rotation = -0.270526
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="TopDetail/Truss"]
+texture = ExtResource("3_ahho6")
+region_enabled = true
+region_rect = Rect2(600, 10, 84, 231)
+
+[node name="Truss4" type="Node2D" parent="TopDetail"]
+position = Vector2(175, 91)
+rotation = -1.61617
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="TopDetail/Truss4"]
+texture = ExtResource("3_ahho6")
+region_enabled = true
+region_rect = Rect2(600, 10, 84, 231)
+
+[node name="Truss2" type="Node2D" parent="TopDetail"]
+position = Vector2(-186, -265)
+rotation = 1.40674
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="TopDetail/Truss2"]
+texture = ExtResource("3_ahho6")
+region_enabled = true
+region_rect = Rect2(600, 10, 84, 231)
+
+[node name="Truss3" type="Node2D" parent="TopDetail"]
+position = Vector2(-275, -157)
+rotation = 0.129154
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="TopDetail/Truss3"]
+texture = ExtResource("3_ahho6")
+region_enabled = true
+region_rect = Rect2(600, 10, 84, 231)
+
+[node name="VentForeground" type="Sprite2D" parent="TopDetail"]
+visible = false
+position = Vector2(-72, 39)
+texture = ExtResource("3_ahho6")
+region_enabled = true
+region_rect = Rect2(473, 149, 72, 62)
+
+[connection signal="won" from="YSort/Player" to="." method="_on_player_won"]
+[connection signal="tackled" from="YSort/Thief/Tackleable" to="YSort/Thief" method="_on_tackleable_tackled"]
