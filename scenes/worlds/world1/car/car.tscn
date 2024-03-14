@@ -24,10 +24,10 @@ position = Vector2(-0.5, -26)
 shape = SubResource("RectangleShape2D_v0x0o")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -43.06)
 texture = ExtResource("1_odp5w")
+offset = Vector2(0, -34.785)
 region_enabled = true
-region_rect = Rect2(0, 0, 108, 100)
+region_rect = Rect2(8, 551, 109, 77)
 
 [node name="FrontArea" type="Area2D" parent="."]
 collision_layer = 3

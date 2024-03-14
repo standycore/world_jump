@@ -11,13 +11,18 @@ config_version=5
 [application]
 
 config/name="World Jump"
-run/main_scene="res://scenes/main/main.tscn"
+run/main_scene="res://scenes/worlds/tutorial/tutorial.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://misc/icon.svg"
 
 [autoload]
 
 GameManager="*res://singletons/game_manager.gd"
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_height"
 
 [editor_plugins]
 

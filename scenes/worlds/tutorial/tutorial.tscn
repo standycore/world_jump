@@ -7,10 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://cl2uo2x30vd5" path="res://scenes/worlds/tutorial/button/button.tscn" id="5_0oq0p"]
 [ext_resource type="Texture2D" uid="uid://5cidcxx1lkts" path="res://assets/remote.png" id="6_ei6yf"]
 [ext_resource type="Script" path="res://scenes/worlds/tutorial/thief.gd" id="7_43bje"]
-[ext_resource type="Texture2D" uid="uid://buadhcjn8144d" path="res://misc/icon.svg" id="7_piwc7"]
 [ext_resource type="Script" path="res://scenes/components/npc/npc_movement.gd" id="7_q5cbv"]
 [ext_resource type="Script" path="res://scenes/components/thief/thief_component.gd" id="8_v2mle"]
+[ext_resource type="Curve" uid="uid://dghu628r8xkef" path="res://scenes/components/npc/bounce_curve.tres" id="10_oqd8j"]
 [ext_resource type="Script" path="res://scenes/components/tackleable/tackleable.gd" id="11_233gc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k20xw"]
+font_size = 20
 
 [sub_resource type="Animation" id="Animation_i4sbt"]
 length = 0.001
@@ -217,6 +220,20 @@ tracks/16/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/17/type = "value"
+tracks/17/imported = false
+tracks/17/enabled = true
+tracks/17/path = NodePath("CanvasLayer/Label:text")
+tracks/17/interp = 1
+tracks/17/loop_wrap = true
+tracks/17/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Use Arrow Keys to move.
+Press the white buttons
+with [Z] to start the machine"]
 }
 
 [sub_resource type="Animation" id="Animation_y07pl"]
@@ -519,6 +536,19 @@ tracks/13/keys = {
 "update": 1,
 "values": [true, false]
 }
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("CanvasLayer/Label:text")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(1.7),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Catch the thief by
+tackling them with [X]"]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sevvd"]
 _data = {
@@ -563,11 +593,6 @@ height = 74.0
 radius = 5.0
 height = 20.0
 
-[sub_resource type="Curve" id="Curve_5m77p"]
-bake_resolution = 10
-_data = [Vector2(0, 0), 0.0, 3.97562, 0, 0, Vector2(0.498169, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.9782, 0.0, 0, 0]
-point_count = 3
-
 [node name="Tutorial" type="Node2D" node_paths=PackedStringArray("buttons", "camera", "player", "thief", "remote")]
 process_mode = 1
 script = ExtResource("1_mp6gx")
@@ -576,6 +601,16 @@ camera = NodePath("CameraFollow")
 player = NodePath("YSort/Player")
 thief = NodePath("YSort/Thief")
 remote = NodePath("YSort/Remote")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 186.0
+offset_bottom = 90.0
+text = "Use Arrow Keys to move.
+Press the white buttons
+with [Z] to start the machine"
+label_settings = SubResource("LabelSettings_k20xw")
 
 [node name="TutorialAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -725,9 +760,10 @@ disabled = true
 [node name="Design" type="Node2D" parent="YSort/Thief"]
 
 [node name="Sprite2D" type="Sprite2D" parent="YSort/Thief/Design"]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("7_piwc7")
-offset = Vector2(0, -64.4)
+texture = ExtResource("3_ahho6")
+offset = Vector2(0, -21.915)
+region_enabled = true
+region_rect = Rect2(427, 264, 39, 50)
 
 [node name="Remote" type="Sprite2D" parent="YSort/Thief/Design"]
 visible = false
@@ -742,7 +778,7 @@ body = NodePath("..")
 nav_agent = NodePath("../NavigationAgent2D")
 bouncing_enabled = true
 bounce_node = NodePath("../Design")
-_bounce_curve = SubResource("Curve_5m77p")
+_bounce_curve = ExtResource("10_oqd8j")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="YSort/Thief"]
 avoidance_enabled = true

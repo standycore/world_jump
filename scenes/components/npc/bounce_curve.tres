@@ -1,0 +1,6 @@
+[gd_resource type="Curve" format=3 uid="uid://dghu628r8xkef"]
+
+[resource]
+bake_resolution = 10
+_data = [Vector2(0, 0), 0.0, 3.97562, 0, 0, Vector2(0.498169, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.9782, 0.0, 0, 0]
+point_count = 3
